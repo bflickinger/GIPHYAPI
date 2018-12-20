@@ -1,0 +1,19 @@
+button,
+div,
+form,
+input{
+    margin: 5px;
+}
+
+.navbar{
+    background-color: #e3f2fd;
+}
+
+#gifs-view{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+ #add-more{
+     display: none;
+ }

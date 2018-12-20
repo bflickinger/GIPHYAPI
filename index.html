@@ -1,84 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <title>GIPHY API</title>
-  <style type="text/css">
-    button,
-    div,
-    form,
-    input {
-      margin: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GIF Retrieval and Display</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
-
 <body>
-  <div class="container">
-    <h1>GIPHY API Search</h1>
-    <!-- Put Buttons here! -->
-    <div id="buttons-view"></div>
-
-    <!-- Form for data entry of new buttons -->
-    <form id="gifs-form">
-      <label for="gifs-input">Add a gif, Yo!</label>
-      <input type="text" id="gifs-input"><br>
-      <input id="add-gifs" type="submit" value="Add a GIF, Yo!">
-    </form>
-
-    <!-- Put GIFs here -->
-    <div id="gifs-view"></div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript">
-      // Initial array of gifs
-      var gifsArray = ["The Matrix", "The Notebook", "Mr. Nobody", "The Lion King"];
-      // displaygifsInfo function re-renders the HTML to display the appropriate content
-      function displaygifsInfo() {
-        var gifName = $(this).attr("data-name");
-        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=5t8FD89RvqT1gn8HLFlcgRRm6u9af9j9&q=" + gifName + "&limit=10&offset=0&rating=G&lang=en"
-        if ($("#gifs-view").length){
-             $("#gifs-view").empty(); 
-            }
-        // Creates AJAX call for the specific gifs button being clicked
-        $.ajax({
-          url: queryURL,
-          method: "GET"
-        }).then(function(response) {
-          console.log(response);
-          $.each(response.data, function (index, value){
-            var gifURLHolder = response.data[index].images.fixed_height_still.url;
-            console.log(gifURLHolder);
-            $("#gifs-view").append("<div><img src='" + gifURLHolder + "'></img></div>");
-            console.log("<div><img src='" + gifURLHolder + "'></div>");
-          });
-        });
-      }
-      // Function to display the buttons
-      function renderButtons() {
-        $("#buttons-view").empty();
-        for (var i = 0; i < gifsArray.length; i++) {
-          var a = $("<button>");
-          a.addClass("gifs");
-          a.attr("data-name", gifsArray[i]);
-          a.text(gifsArray[i]);
-          $("#buttons-view").append(a);
-        }
-      }
-      // This function handles events where the add gifs button is clicked
-      $("#add-gifs").on("click", function(event) {
-        event.preventDefault();
-        var gifs = $("#gifs-input").val().trim();
-        gifsArray.push(gifs);
-        renderButtons();
-      });
-      // Adding click event listeners to all elements with a class of "gifs"
-      $(document).on("click", ".gifs", displaygifsInfo);
-      // Calling the renderButtons function to display the intial buttons
-      renderButtons();
-    </script>
-  </div>
+    <div class="container">
+        <nav class="navbar navbar-light">
+            <a class="navbar-brand">Marvel GIF Search!</a>
+            <form class="form-inline">
+                <button class="btn btn-outline-primary my-2 my-sm-0 navbar-centered" id="add-more" type="submit">Add More!</button>
+                <input class="form-control mr-sm-2" id="gifs-input" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-secondary my-2 my-sm-0" id="add-gifs" type="submit">Search</button>
+            </form>
+        </nav>
+        <!-- Buttons go here -->
+        <hr>
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="buttons-view"></div>
+            </div>
+        </div>
+        <!-- Gifs go here -->
+        <hr>
+        <div class="row">
+            <div class="col-lg-12 gifs-parent">
+                <div id="gifs-view"></div>
+            </div>
+        </div>
+    </div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="assets/javascript/app.js"></script>
 </body>
-
 </html>
